@@ -7,7 +7,9 @@ $
 C_n = sum_(k=0)^(n-1) r_(k,n)
 $ <cost>
 
-where $r_(k,n)$ is the cost of finding an available shortened URL at random, when $k$ out of $n$ are unavailable (already taken). Clearly:
+where $r_(k,n)$ is the cost of finding an available shortened URL at random, when $k$ out of $n$ are unavailable (already taken).
+
+Clearly:
 $
 r_(k,n) = sum_(i=1)^∞ i p_n (i, k)
 $ <find>
@@ -54,6 +56,7 @@ r_(k,n) &= (n-k)/n sum_(i=1)^∞ i(k/n)^(i-1) & "        from (4)" \
         &= n / (n-k)
 $
 #pagebreak()
+#set math.equation(numbering: none)
 So:
 $
 C_n &= sum_(k=0)^(n-1) r_(k,n) & "        by definition (1)" \
@@ -70,7 +73,7 @@ is the $n$th _Harmonic number_.
 == Example
 
 If $n=26000$, the total cost is: $
-C_26000 &= 26000 H_26000 \
-        &≈ 26000 . 10.743 & "using Wolfram alpha" \
+C_26000 &= 26000 #sym.times H_26000 \
+        &≈ 26000 #sym.times 10.743 & "        (using Wolfram alpha)" \
         &= 279318
 $
