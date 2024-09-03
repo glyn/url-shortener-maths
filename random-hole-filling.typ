@@ -1,17 +1,28 @@
-= Random hole filling
+= Random hole filling theorem
 #show math.equation: set text(font: "New Computer Modern Math")
 #set math.equation(numbering: "(1)", number-align: bottom)
 Suppose $n$ is a positive integer and there are $n$ balls and $n$ empty holes. Each hole has room for just one ball. Suppose each ball in turn is thrown at random into one of the holes. If the hole is empty, the ball is left in the hole and the next ball is thrown. However, if there is already a ball in the hole, the ball that has just been thrown is picked up and thrown again at random into one of the holes. This process continues until each ball has been thrown into an empty hole.
 
-What is the expected number of throws, $T_n$, required to fill all the holes? 
+== Theorem
 
-The expected number of throws, $T_n$ is given by:
+The expected number of throws, $T_n$, required to fill all the holes is $n H_n$ where:
+$
+H_n = sum_(j=1)^n 1/j
+$
+is the $n$th Harmonic number.
+
+#line(length: 100%)
+== Proof
+
+The expected number of throws, $T_n$, is given by:
 
 $
 T_n = sum_(k=0)^(n-1) r_(k,n)
 $ <cost>
 
-where $r_(k,n)$ is the expected number of throws required to fill an empty hole when $k$ out of $n$ holes are already filled. Clearly:
+where $r_(k,n)$ is the expected number of throws required to fill an empty hole when $k$ out of $n$ holes are already filled.
+
+Clearly:
 $
 r_(k,n) = sum_(i=1)^∞ i p_n (i, k)
 $ <find>
@@ -67,14 +78,11 @@ T_n &= sum_(k=0)^(n-1) r_(k,n) & "        by definition (1)" \
     &= n sum_(j=1)^n 1/j & "        subsituting " j = n - k \
     &= n H_n
 $
-where $
-H_n = sum_(j=1)^n 1/j
-$
-is the $n$th _Harmonic number_.
 #line(length: 100%)
 == Example
 
-If $n=26000$, the expected number of throws is: $
+If $n=26000$, the expected number of throws is:
+$
 T_26000 &= 26000 H_26000 \
         &≈ 26000 #sym.times 10.743 & "        (using Wolfram alpha)" \
         &= 279318
