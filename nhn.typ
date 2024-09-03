@@ -1,17 +1,21 @@
-= URL Shorterner Performance
+= Random hole filling
 #show math.equation: set text(font: "New Computer Modern Math")
 #set math.equation(numbering: "(1)", number-align: bottom)
-The total cost, $C_n$, of shortening the maximum number of URLs, $n$, is given by:
+Suppose $n$ is a positive integer and there are $n$ balls and $n$ empty holes. Each hole has room for just one ball. Suppose each ball in turn is thrown at random into one of the holes. If the hole is empty, the ball is left in the hole and the next ball is thrown. However, if there is already a ball in the hole, the ball that has just been thrown is picked up and thrown again at random into one of the holes. This process continues until each ball has been thrown into an empty hole.
+
+What is the expected number of throws, $T_n$, required to fill all the holes? 
+
+The expected number of throws, $T_n$ is given by:
 
 $
-C_n = sum_(k=0)^(n-1) r_(k,n)
+T_n = sum_(k=0)^(n-1) r_(k,n)
 $ <cost>
 
-where $r_(k,n)$ is the cost of finding an available shortened URL at random, when $k$ out of $n$ are unavailable (already taken). Clearly:
+where $r_(k,n)$ is the expected number of throws required to fill an empty hole when $k$ out of $n$ holes are already filled. Clearly:
 $
 r_(k,n) = sum_(i=1)^∞ i p_n (i, k)
 $ <find>
-where $p_n (i, k)$ is the probability of finding an available URL on the $i$th attempt when $k$ out of $n$ are already taken.
+where $p_n (i, k)$ is the probability of throwing a ball into an empty hole on the $i$th attempt when $k$ out of $n$ are already filled.
 $
 &p_n (1, k) = (n - k)/n \
 
@@ -31,7 +35,7 @@ $
 #pagebreak()
 #set math.equation(numbering: none)
 Let$
-α &= k/n && "        (note" α<1 ")"
+α &= k/n && "        (note" 0<α<1 ")"
 $
 #set math.equation(numbering: "(1)")
 #import "@preview/physica:0.9.1": * 
@@ -41,7 +45,7 @@ S_α &= sum_(i=1)^∞ i α^(i-1) \
     &= dv(, α) sum_(i=1)^∞ α^i \
     &= dv(, α) ((sum_(i=0)^∞ α^i) - 1) \
     &= dv(, α) sum_(i=0)^∞ α^i \
-    &= dv(, α) (1/(1-α)) & "        see Geometric Series on wikipedia" \
+    &= dv(, α) (1/(1-α)) & "        (see Geometric Series on wikipedia)" \
     &= 1 / (1-α)^2
 $
 #line(length: 100%)
@@ -54,9 +58,10 @@ r_(k,n) &= (n-k)/n sum_(i=1)^∞ i(k/n)^(i-1) & "        from (4)" \
         &= n / (n-k)
 $
 #pagebreak()
+#set math.equation(numbering: none)
 So:
 $
-C_n &= sum_(k=0)^(n-1) r_(k,n) & "        by definition (1)" \
+T_n &= sum_(k=0)^(n-1) r_(k,n) & "        by definition (1)" \
     &= sum_(k=0)^(n-1) n / (n-k) & "        by (6)" \
     &= n sum_(k=0)^(n-1) 1 / (n-k) \
     &= n sum_(j=1)^n 1/j & "        subsituting " j = n - k \
@@ -69,8 +74,8 @@ is the $n$th _Harmonic number_.
 #line(length: 100%)
 == Example
 
-If $n=26000$, the total cost is: $
-C_26000 &= 26000 H_26000 \
-        &≈ 26000 . 10.743 & "using Wolfram alpha" \
+If $n=26000$, the expected number of throws is: $
+T_26000 &= 26000 H_26000 \
+        &≈ 26000 #sym.times 10.743 & "        (using Wolfram alpha)" \
         &= 279318
 $
